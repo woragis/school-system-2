@@ -1,53 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "bst.h"
-
-void menu(node_t **root)
-{
-    int choice = 0;
-    char input[10];
-
-    do
-    {
-        printf("==========================\n");
-        printf("Sistema de Escola em C\n");
-        printf("==========================\n");
-        printf("[1] - Inserir aluno\n");
-        printf("[2] - Remover aluno\n");
-        printf("[3] - Pesquisar aluno\n");
-        printf("[4] - Esvaziar árvore\n");
-        printf("[5] - Exibir árvore\n");
-        printf("[0] - Sair do Programa\n");
-        printf("==========================\n");
-        printf("Escolha: ");
-        fgets(input, sizeof(input), stdin);
-        choice = atoi(input);
-
-        switch (choice)
-        {
-        case 1:
-            menu_insert(root);
-            break;
-        case 2:
-            menu_remove(root);
-            break;
-        case 3:
-            menu_search(*root);
-            break;
-        case 4:
-            menu_delete(root);
-            break;
-        case 5:
-            menu_show(*root);
-            break;
-        case 0:
-            printf("Saindo...\n");
-            break;
-        default:
-            printf("Opção inválida!\n");
-        }
-
-    } while (choice != 0);
-}
+#include "utils.h"
+#include "user.h"
 
 void menu_insert(node_t **root)
 {
@@ -107,4 +62,52 @@ void menu_show(node_t *root)
     }
 
     show_inorder(root);
+}
+
+void menu(node_t **root)
+{
+    int choice = 0;
+    char input[10];
+
+    do
+    {
+        printf("==========================\n");
+        printf("Sistema de Escola em C\n");
+        printf("==========================\n");
+        printf("[1] - Inserir aluno\n");
+        printf("[2] - Remover aluno\n");
+        printf("[3] - Pesquisar aluno\n");
+        printf("[4] - Esvaziar árvore\n");
+        printf("[5] - Exibir árvore\n");
+        printf("[0] - Sair do Programa\n");
+        printf("==========================\n");
+        printf("Escolha: ");
+        fgets(input, sizeof(input), stdin);
+        choice = atoi(input);
+
+        switch (choice)
+        {
+        case 1:
+            menu_insert(root);
+            break;
+        case 2:
+            menu_remove(root);
+            break;
+        case 3:
+            menu_search(*root);
+            break;
+        case 4:
+            menu_delete(root);
+            break;
+        case 5:
+            menu_show(*root);
+            break;
+        case 0:
+            printf("Saindo...\n");
+            break;
+        default:
+            printf("Opção inválida!\n");
+        }
+
+    } while (choice != 0);
 }
