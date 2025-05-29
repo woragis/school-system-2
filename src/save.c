@@ -1,5 +1,7 @@
 #include "bst.h"
+#include <string.h>
 #include <stdlib.h>
+#include "utils.h"
 #include <stdio.h>
 
 void save_tree_to_text(FILE *file, node_t *root)
