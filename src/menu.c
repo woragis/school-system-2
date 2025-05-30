@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "bst.h"
+#include "menu.h"
 #include "utils.h"
 #include "user.h"
 
@@ -85,6 +86,7 @@ void menu(node_t **root)
         fgets(input, sizeof(input), stdin);
         choice = atoi(input);
 
+        clear_terminal();
         switch (choice)
         {
         case 1:
@@ -110,4 +112,9 @@ void menu(node_t **root)
         }
 
     } while (choice != 0);
+}
+
+void clear_terminal()
+{
+    printf("\033[2J\033[H");
 }
