@@ -12,7 +12,29 @@ int main()
 {
     node_t *root = NULL; // Ponteiro para a raiz da árvore binária (inicialmente vazia)
 
+    // Tentativa de carregar árvore do arquivo binário
+    FILE *file = fopen("dados.bin", "rb");
+    if (file)
+    {
+        root = load_tree_from_binary(file);
+        fclose(file);
+        printf("Árvore carregada de dados.bin\n");
+    }
+
+    // Executa o menu principal
     menu(&root); // Chama o menu que gerencia a árvore (inserção, busca, remoção, etc.)
+
+    // Salva a árvore ao sair
+    file = fopen("dados.bin", "wb");
+    if (file)
+    {
+        save_tree_to_binary(file, root);
+        fclose(file);
+        printf("Árvore salva em dados.bin\n");
+    }
+
+    // Libera memória
+    free_tree(root);
 
     return 0; // Retorno 0 indica que o programa terminou com sucesso
 }
