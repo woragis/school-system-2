@@ -1,9 +1,14 @@
-.vscode/
+# Ignore everything by default
 *
-src/*
-!src/*.h
-!src/*.c
-!scripts/
+
+# Don't ignore certain important top-level files
 !Makefile
 !README.md
 !index.html
+
+# Don't ignore certain directories (must "open the path")
+!src/
+!src/*.h
+!src/*.c
+
+!scripts/
