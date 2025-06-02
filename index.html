@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Project Documentation</title>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      background: #f9f9f9;
+    }
+    h2 {
+      margin-top: 2rem;
+    }
+    .mermaid {
+      margin-top: 1rem;
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>Binary Search Tree C Project Diagrams</h1>
+
+  <h2>1. Project File Structure</h2>
+  <div class="mermaid">
+    graph TD
+        Main["main.c"]
+        Menu["menu.c"]
+        BST["bst.c"]
+        Save["save.c"]
+        User["user.h"]
+        Utils["utils.c"]
+
+        Main --> Menu
+        Main --> BST
+        Menu --> BST
+        Menu --> Utils
+        BST --> User
+        Save --> BST
+        Save --> User
+        Utils --> User
+  </div>
+
+  <h2>2. BST Operations</h2>
+  <div class="mermaid">
+    graph TD
+        Insert[Insert User]
+        Delete[Delete User]
+        Search[Search User]
+        Tree[Binary Search Tree]
+        Insert --> Tree
+        Delete --> Tree
+        Search --> Tree
+  </div>
+
+  <h2>3. Inorder Traversal Flow</h2>
+  <div class="mermaid">
+    graph TD
+        ShowInorder[show_inorder()]
+        Left[show_inorder(root->left)]
+        Print[printf(...)]
+        Right[show_inorder(root->right)]
+
+        ShowInorder --> Left
+        Left --> Print
+        Print --> Right
+  </div>
+</body>
+</html>
+

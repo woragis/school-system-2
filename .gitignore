@@ -6,3 +6,4 @@ src/*
 !scripts/
 !Makefile
 !README.md
+!index.html
