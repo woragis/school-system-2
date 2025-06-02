@@ -72,6 +72,124 @@
         Left --> Print
         Print --> Right
   </div>
+
+  <hr>
+
+  <h3>Utils</h3>
+  <div class="mermaid">
+    flowchart TD
+    A[Início da função remove_newline(char *str)] --> B[Calcula o tamanho da string com strlen(str)]
+    B --> C{O tamanho é maior que 0?}
+    C -- Não --> F[Fim da função]
+    C -- Sim --> D{O último caractere é '\n'?}
+    D -- Não --> F
+    D -- Sim --> E[Substitui '\n' por '\0']
+    E --> F
+  </div>
+
+  <hr>
+
+  <h3>Save</h3>
+  <div class="mermaid">
+  flowchart TD
+    A1[save_tree_to_text(FILE*, node_t*)] --> B1{root == NULL?}
+    B1 -- Sim --> C1[Fim]
+    B1 -- Não --> D1[Recursão esquerda]
+    D1 --> E1[Salva "RGM|Nome" no arquivo texto]
+    E1 --> F1[Recursão direita]
+    F1 --> C1
+
+    A2[load_tree_from_text(FILE*)] --> B2[Ler linha do arquivo]
+    B2 --> C2{Linha contém '|'?}
+    C2 -- Não --> B2
+    C2 -- Sim --> D2[Extrai RGM e Nome]
+    D2 --> E2[remove_newline(nome)]
+    E2 --> F2[insert_user(root, user)]
+    F2 --> B2
+    B2 -->|EOF| G2[Retorna root]
+
+    A3[save_tree_to_binary(FILE*, node_t*)] --> B3{root == NULL?}
+    B3 -- Sim --> C3[Fim]
+    B3 -- Não --> D3[Recursão esquerda]
+    D3 --> E3[Escreve struct user_t no arquivo binário]
+    E3 --> F3[Recursão direita]
+    F3 --> C3
+
+    A4[load_tree_from_binary(FILE*)] --> B4[Ler struct user_t do arquivo]
+    B4 --> C4{fread retorna 1?}
+    C4 -- Não --> D4[Retorna root]
+    C4 -- Sim --> E4[insert_user(root, user)]
+    E4 --> B4
+  </div>
+
+  <hr>
+
+  <h3>Menu</h3>
+  <div class="mermaid" id="menu">
+  flowchart TD
+    Start[Início do Programa] --> MenuFunc[menu root]
+
+    MenuFunc --> ShowMenu["Exibe menu de opções"]
+    ShowMenu --> GetInput["Usuário insere opção"]
+    GetInput --> Clear["clear_terminal()"]
+    Clear --> ChoiceCheck{Escolha}
+
+    ChoiceCheck --> C1["1 - Inserir aluno"]
+    C1 --> MenuInsert["menu_insert(root)"]
+    MenuInsert --> AskName["Prompt: Enter name"]
+    AskName --> ReadName["fgets u.name"]
+    ReadName --> CleanName["remove_newline u.name"]
+    CleanName --> AskRGM["Prompt: Enter RGM"]
+    AskRGM --> ReadRGM["fgets u.rgm"]
+    ReadRGM --> CleanRGM["remove_newline u.rgm"]
+    CleanRGM --> Insert["insert_user()"]
+
+    ChoiceCheck --> C2["2 - Remover aluno"]
+    C2 --> MenuRemove["menu_remove(root)"]
+    MenuRemove --> AskRGM2["Prompt: Enter RGM"]
+    AskRGM2 --> ReadRGM2["fgets rgm"]
+    ReadRGM2 --> CleanRGM2["remove_newline rgm"]
+    CleanRGM2 --> Remove["remove_user()"]
+
+    ChoiceCheck --> C3["3 - Pesquisar aluno"]
+    C3 --> MenuSearch["menu_search(root)"]
+    MenuSearch --> AskQuery["Prompt: Search RGM"]
+    AskQuery --> ReadQuery["fgets query"]
+    ReadQuery --> CleanQuery["remove_newline query"]
+    CleanQuery --> DoSearch["search_user()"]
+    DoSearch --> FoundCheck{"Usuário encontrado?"}
+    FoundCheck -->|Sim| ShowFound["printf: Found nome + RGM"]
+    FoundCheck -->|Não| ShowNotFound["printf: RGM not found"]
+
+    ChoiceCheck --> C4["4 - Esvaziar árvore"]
+    C4 --> MenuDelete["menu_delete(root)"]
+    MenuDelete --> FreeTree["free_tree()"]
+    FreeTree --> NullRoot["root = NULL"]
+
+    ChoiceCheck --> C5["5 - Exibir árvore"]
+    C5 --> MenuShow["menu_show(root)"]
+    MenuShow --> IsEmpty{"root == NULL?"}
+    IsEmpty -->|Sim| TreeEmpty["printf: Tree is empty"]
+    IsEmpty -->|Não| ShowInOrder["show_inorder(root)"]
+
+    ChoiceCheck --> C0["0 - Sair"]
+    C0 --> Exit["printf: Saindo..."]
+
+    ChoiceCheck --> CInv["Outro valor"]
+    CInv --> Invalid["printf: Opção inválida"]
+
+    Insert --> LoopBack["Volta ao menu"]
+    Remove --> LoopBack
+    ShowFound --> LoopBack
+    ShowNotFound --> LoopBack
+    NullRoot --> LoopBack
+    TreeEmpty --> LoopBack
+    ShowInOrder --> LoopBack
+    Invalid --> LoopBack
+    LoopBack --> ShowMenu
+  </div>
+
+
 </body>
 </html>
 
