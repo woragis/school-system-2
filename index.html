@@ -76,14 +76,14 @@
   <hr>
 
   <h3>Utils</h3>
-  <div class="mermaid">
+  <div class="mermaid" id="utils">
     flowchart TD
-    A[Início da função remove_newline(char *str)] --> B[Calcula o tamanho da string com strlen(str)]
-    B --> C{O tamanho é maior que 0?}
-    C -- Não --> F[Fim da função]
-    C -- Sim --> D{O último caractere é '\n'?}
+    A["Início da função remove_newline(char *str)"] --> B["Calcula o tamanho da string com strlen(str)"]
+    B --> C{"O tamanho é maior que 0?"}
+    C -- Não --> F["Fim da função"]
+    C -- Sim --> D{"O último caractere é '\n'?"}
     D -- Não --> F
-    D -- Sim --> E[Substitui '\n' por '\0']
+    D -- Sim --> E["Substitui '\n' por '\0'"]
     E --> F
   </div>
 
