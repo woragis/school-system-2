@@ -1,3 +1,3 @@
 #!/usr/bin/sh
 
-./src/main
+make run
