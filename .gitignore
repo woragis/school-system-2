@@ -5,3 +5,4 @@ src/*
 !src/*.c
 !scripts/
 !Makefile
+!README.md
