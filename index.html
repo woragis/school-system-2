@@ -28,54 +28,117 @@
 <body>
   <h1>Binary Search Tree C Project Diagrams</h1>
 
-  <h2>1. Project File Structure</h2>
-  <div class="mermaid">
-    graph TD
-        Main["main.c"]
-        Menu["menu.c"]
-        BST["bst.c"]
-        Save["save.c"]
-        User["user.h"]
-        Utils["utils.c"]
+  <h2>Binary Search Tree</h2>
+  <div class="mermaid" id="binary-search-tree">
+    flowchart TD
+    Start["Início: chamada da função"]
 
-        Main --> Menu
-        Main --> BST
-        Menu --> BST
-        Menu --> Utils
-        BST --> User
-        Save --> BST
-        Save --> User
-        Utils --> User
+    Start --> CheckRootInsert["insert_user: root == NULL?"]
+    CheckRootInsert -->|Sim| AllocNode["Aloca novo nó"]
+    AllocNode --> InitNode["Inicializa novo nó com new_user"]
+    InitNode --> ReturnNewNode["Retorna novo nó"]
+
+    CheckRootInsert -->|Não| CheckDuplicate["RGM já existe?"]
+    CheckDuplicate -->|Sim| PrintDuplicate["printf: 'RGM já existe. Ignorando inserção.'"]
+    PrintDuplicate --> ReturnRoot["Retorna root"]
+
+    CheckDuplicate -->|Não| CompareRGMInsert["strcmp(new_user.rgm, root->user.rgm) < 0?"]
+    CompareRGMInsert -->|Sim| InsertLeft["root->left = insert_user(root->left, new_user)"]
+    InsertLeft --> ReturnRoot
+
+    CompareRGMInsert -->|Não| InsertRight["root->right = insert_user(root->right, new_user)"]
+    InsertRight --> ReturnRoot
   </div>
 
-  <h2>2. BST Operations</h2>
-  <div class="mermaid">
-    graph TD
-        Insert[Insert User]
-        Delete[Delete User]
-        Search[Search User]
-        Tree[Binary Search Tree]
-        Insert --> Tree
-        Delete --> Tree
-        Search --> Tree
+  <h2>Search user</h2>
+  <div class="mermaid" id="">
+    flowchart TD
+    StartSearch["Início: search_user(root, rgm)"]
+    StartSearch --> CheckRootSearch["root == NULL?"]
+    CheckRootSearch -->|Sim| ReturnNull["Retorna NULL (não encontrado)"]
+
+    CheckRootSearch -->|Não| CompareRGMSearch["strcmp(rgm, root->user.rgm)"]
+    CompareRGMSearch -->|0| ReturnUser["Retorna &root->user"]
+    CompareRGMSearch -->|<0| SearchLeft["search_user(root->left, rgm)"]
+    SearchLeft --> ReturnUser
+    CompareRGMSearch -->|>0| SearchRight["search_user(root->right, rgm)"]
+    SearchRight --> ReturnUser
   </div>
 
-  <h2>3. Inorder Traversal Flow</h2>
-  <div class="mermaid" id="show-users">
-    graph TD
-        ShowInorder["show_inorder()"]
-        Left["show_inorder(root->left)"]
-        Print["printf(...)"]
-        Right["show_inorder(root->right)"]
+  <h2>Free tree</h2>
+  <div class="mermaid">
+    flowchart TD
 
-        ShowInorder --> Left
-        Left --> Print
-        Print --> Right
+    StartFree["Início: free_tree(root)"]
+    StartFree --> CheckRootFree["root == NULL?"]
+    CheckRootFree -->|Sim| ReturnFree["Retorna (nada a fazer)"]
+
+    CheckRootFree -->|Não| FreeLeft["free_tree(root->left)"]
+    FreeLeft --> FreeRight["free_tree(root->right)"]
+    FreeRight --> FreeNode["free(root)"]
+    FreeNode --> ReturnFree
+  </div>
+
+  <h2>Find minimal (funcao auxiliar)</h2>
+  <div class="mermaid">
+    flowchart TD
+    StartFindMin["Início: find_min(node)"]
+    StartFindMin --> CheckLeftMin["node && node->left != NULL?"]
+    CheckLeftMin -->|Sim| LoopLeft["node = node->left"]
+    LoopLeft --> CheckLeftMin
+    CheckLeftMin -->|Não| ReturnMin["Retorna node"]
+  </div>
+
+  <h2>Remove user</h2>
+  <div class="mermaid">
+    flowchart TD
+
+    StartRemove["Início: remove_user(root, rgm)"]
+    StartRemove --> CheckRootRemove["root == NULL?"]
+    CheckRootRemove -->|Sim| ReturnNullRemove["Retorna NULL (não encontrado)"]
+
+    CheckRootRemove -->|Não| CompareRGMRemove["strcmp(rgm, root->user.rgm)"]
+    CompareRGMRemove -->|<0| RemoveLeft["root->left = remove_user(root->left, rgm)"]
+    RemoveLeft --> ReturnRootRemove["Retorna root"]
+
+    CompareRGMRemove -->|>0| RemoveRight["root->right = remove_user(root->right, rgm)"]
+    RemoveRight --> ReturnRootRemove
+
+    CompareRGMRemove -->|==0| NodeFound["Nó encontrado"]
+    NodeFound --> CheckLeftNull["root->left == NULL?"]
+    CheckLeftNull -->|Sim| ReplaceRight["temp = root->right; free(root); return temp"]
+    CheckLeftNull -->|Não| CheckRightNull["root->right == NULL?"]
+    CheckRightNull -->|Sim| ReplaceLeft["temp = root->left; free(root); return temp"]
+
+    CheckRightNull -->|Não| TwoChildren["Dois filhos"]
+    TwoChildren --> FindMinNode["min_node = find_min(root->right)"]
+    FindMinNode --> CopyData["root->user = min_node->user"]
+    CopyData --> RemoveMinNode["root->right = remove_user(root->right, min_node->user.rgm)"]
+    RemoveMinNode --> ReturnRootRemove
+
+    ReplaceRight --> ReturnRootRemove
+    ReplaceLeft --> ReturnRootRemove
+    
+  </div>
+
+
+
+  <h2>Show tree</h2>
+  <div class="mermaid">
+    flowchart TD
+    StartShow["Início: show_inorder(root)"]
+    StartShow --> CheckRootShow["root == NULL?"]
+    CheckRootShow -->|Sim| ReturnShow["Retorna (nada a mostrar)"]
+
+    CheckRootShow -->|Não| ShowLeft["show_inorder(root->left)"]
+    ShowLeft --> PrintUser["printf: RGM e Nome"]
+    PrintUser --> ShowRight["show_inorder(root->right)"]
+    ShowRight --> ReturnShow
   </div>
 
   <hr>
 
-  <h3>Utils</h3>
+  <h2>Utils</h2>
   <div class="mermaid" id="utils">
     flowchart TD
     A["Início da função remove_newline(char *str)"] --> B["Calcula o tamanho da string com strlen(str)"]
@@ -89,7 +152,7 @@
 
   <hr>
 
-  <h3>Save</h3>
+  <h2>Save</h2>
   <div class="mermaid">
   flowchart TD
     A1["save_tree_to_text(FILE*, node_t*)"] --> B1{"root == NULL?"}
@@ -124,7 +187,7 @@
 
   <hr>
 
-  <h3>Menu</h3>
+  <h2>Menu</h2>
   <div class="mermaid" id="menu">
   flowchart TD
     Start[Início do Programa] --> MenuFunc[menu root]
@@ -188,8 +251,6 @@
     Invalid --> LoopBack
     LoopBack --> ShowMenu
   </div>
-
-
 </body>
 </html>
 
