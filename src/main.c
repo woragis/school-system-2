@@ -257,6 +257,13 @@ void menu_show(node_t *root)
 // Funcao para printar o menu principal do programa
 void menu(node_t **root)
 {
+    printf("GRUPO:\n");
+    printf("\tVictor Gabriel\n");
+    printf("\tGustavo Theymos #polimata\n");
+    printf("\tHumberto #hum Betinho #benca\n");
+    printf("\tJezreel de Andrade\n");
+    printf("DISCIPLINA: ESTRUTURA DE DADOS I\n");
+    printf("PROFESSOR: WALLACE BONFIM\n");
     int choice = 0;
     char input[10];
 
@@ -315,6 +322,7 @@ void clear_terminal()
     // \033[2J limpa a tela.
     // \033[H move o cursor para o topo da tela.
     printf("\033[2J\033[H");
+    printf("\n\n\n\n\n\n\n\n\n\n");
 }
 
 // Salva a árvore em um arquivo de texto em ordem (in-order traversal)
