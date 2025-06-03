@@ -21,17 +21,33 @@ int main()
         fclose(file);
         printf("Árvore carregada de dados.bin\n");
     }
+    FILE *file_text = fopen("dados.txt", "r");
+    if (file_text)
+    {
+        // root = load_tree_from_text(file_text);
+        // printf("Árvore carregada de dados.bin\n");
+        fclose(file_text);
+    }
 
     // Executa o menu principal
     menu(&root); // Chama o menu que gerencia a árvore (inserção, busca, remoção, etc.)
 
-    // Salva a árvore ao sair
+    // Salva a árvore ao sair (em binario)
     file = fopen("dados.bin", "wb");
     if (file)
     {
         save_tree_to_binary(file, root);
         fclose(file);
         printf("Árvore salva em dados.bin\n");
+    }
+
+    // Salva a árvore ao sair (em texto)
+    file_text = fopen("dados.txt", "w");
+    if (file_text)
+    {
+        save_tree_to_text(file_text, root);
+        fclose(file_text);
+        printf("Árvore salva em dados.txt\n");
     }
 
     // Libera memória
