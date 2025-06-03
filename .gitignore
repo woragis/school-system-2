@@ -12,3 +12,5 @@
 !src/*.c
 
 !scripts/
+!scripts/*.sh
+!scripts/*.py
